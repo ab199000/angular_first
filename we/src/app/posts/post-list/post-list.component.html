@@ -1,0 +1,30 @@
+<mat-accordion milti="true" *ngIf="posts.length > 0">
+    <mat-expansion-panel *ngFor="let post of posts; let i = index">
+        <mat-expansion-panel-header *ngIf="post.isEdited == false">
+            {{ post.title }}
+        </mat-expansion-panel-header>
+        <!-- {{post.img['prefix']}}
+        {{post.img['base64Img']}} -->
+        <img [src]="post.img != '' ? post.img['prefix'] + ',' + post.img.base64Img : '' " alt="" class="task_img"  *ngIf="post.isEdited == false">
+        <p *ngIf="post.isEdited == false">{{ post.content }}</p>
+        <mat-card *ngIf="post.isEdited == true">
+            <!-- <mat-expansion-panel *ngIf="post.isEdited == true"> -->
+                <mat-form-field>
+                    <input matInput type="text" name="title"[(ngModel)]="newTitle" value={{post.title}} required minlength="3" placeholder="Post Title">
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea matInput rows="6" name="content"[(ngModel)]="newContent" required placeholder="Post Content">{{post.content}}</textarea>
+                </mat-form-field>
+
+                    <input id="input2" type="file" accept=".png, .jpg, .jpeg"  (change)="chooseFile($event)" name="img" ngModel>
+            <!-- </mat-expansion-panel> -->
+        </mat-card>
+
+        <mat-action-row>
+            <button  *ngIf="post.isEdited == true" mat-button color="warn" (click)="onEdit(i)">SAVE</button>
+            <button *ngIf="post.isEdited == false" mat-button color="primary" (click)="onOpenEdit(i)">EDIT</button>
+            <button mat-button color="warn" (click)="onDeletePost(i)">DELETE</button>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0">No posts added yet!</p>
