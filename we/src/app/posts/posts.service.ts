@@ -36,15 +36,18 @@ export class PostService{
       console.log(res)
 
       this.post = res
+      // this.posts.push(this.post[this.post.length-1])
 
-      this.getDan()
-      setTimeout(()=>{
-        console.log(this.postsServer);
-        // this.posts.push(this.postsServer[this.postsServer.length-1])
-        this.postsUpdated.next([...this.posts])
-      }, 200)
+      this.postsUpdated.next(this.post)
 
-      
+      // this.getDan()
+      // setTimeout(()=>{
+      //   console.log(this.postsServer);
+      //   // this.posts.push(this.postsServer[this.postsServer.length-1])
+      //   this.postsUpdated.next([...this.posts])
+      // }, 200)
+
+
     })
     }
 

@@ -83,7 +83,9 @@ app.post("/posts/addPost", async(req, res)=> {
     console.log(post);
     try{
         await collection.insertOne(post);
-        res.send(post);
+        let response = await collection.find({}).toArray();
+        // console.log("|||||||||||||||||||", response)
+        res.send(response);
     }
     catch(err){
         console.log(err);
